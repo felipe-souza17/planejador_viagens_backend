@@ -29,4 +29,15 @@ class TripsRepository:
         cursor.execute('''select * from trips where id = ?''', (trip_id,))
         trip = cursor.fetchone()
         return trip
-        
+    
+    def update_trip_status(self, trip_id: str) -> None:
+        cursor = self.__conn.cursor()
+        cursor.execute(
+            '''
+                update trips
+                    set status = 1
+                where
+                    id = ?
+            ''', (trip_id,)
+        )
+        self.__conn.commit()
