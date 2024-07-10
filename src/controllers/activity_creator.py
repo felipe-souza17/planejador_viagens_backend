@@ -15,7 +15,7 @@ class ActivityCreator:
                 "occurs_at": body["occurs_at"]
             }
 
-            self.__activity_repository.registry_activity()
+            self.__activity_repository.registry_activity(activity_repository_info)
             return {
                 "body": { "activity_repository_id": activity_repository_id },
                 "status_code": 201
