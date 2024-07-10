@@ -23,3 +23,16 @@ class ParticipantsRepository:
             )
         )
         self.__conn.commit()
+    
+    def find_participants_from_trip(self, trip_id: str) -> List[Tuple]:
+        cursor = self.__conn.cursor()
+        cursor.execute(
+            '''
+                select p.id, p.name, p.is_confirmed, e.email from participants as p where join emails_to_invite as e on e.id = p.emails_to_invite_id where p.trip_id = ?
+            ''',
+            (
+                trip_id,
+            )
+        )
+        participants = cursor.fetchall()
+        return participants
