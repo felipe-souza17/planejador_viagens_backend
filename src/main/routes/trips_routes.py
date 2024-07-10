@@ -76,3 +76,13 @@ def invite_to_trip(tripId):
 
     response = controller.create(request.json, tripId)
     return jsonify(response["body"]), response["status_code"]
+
+@trips_routes_bp.route("/trips/<tripId>/activities", methods=["POST"])
+def create_activity(tripId):
+    conn = db_connection_handler.get_connection()
+    activities_repository = ActivitiesRepository(conn)
+    emails_repository = EmailsToInviteRepository(conn)
+    controller = ActivitiesRepository(activities_repository, emails_repository)
+
+    response = controller.create(request.json, tripId)
+    return jsonify(response["body"]), response["status_code"]
