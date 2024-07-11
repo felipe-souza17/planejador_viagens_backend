@@ -107,3 +107,12 @@ def get_trip_activities(tripId):
 
     response = controller.find_activities_from_trip(tripId)
     return jsonify(response["body"]), response["status_code"]
+
+@trips_routes_bp.route("/participants/<participantId>/confirm", methods=["PATCH"])
+def confirm_participant(participantId):
+    conn = db_connection_handler.get_connection()
+    participant_repository = ParticipantsRepository(conn)
+    controller = ParticipantConfirmer(participant_repository)
+
+    response = controller.confirm(participantId)
+    return jsonify(response["body"]), response["status_code"]
