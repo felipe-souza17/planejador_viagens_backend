@@ -28,7 +28,7 @@ class ParticipantsRepository:
         cursor = self.__conn.cursor()
         cursor.execute(
             '''
-                select p.id, p.name, p.is_confirmed, e.email from participants as p where join emails_to_invite as e on e.id = p.emails_to_invite_id where p.trip_id = ?
+                select p.id, p.name, p.is_confirmed, e.email from participants as p join emails_to_invite as e on e.id = p.emails_to_invite_id where p.trip_id = ?
             ''',
             (
                 trip_id,
